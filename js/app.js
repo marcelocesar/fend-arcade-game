@@ -1,20 +1,25 @@
 // Inimigos que nosso jogador deve evitar
 class Enemy {
-	constructor({ sprite = 'images/enemy-bug.png', x = 0, y = 0 } = {}) {
+	constructor({ sprite = 'images/enemy-bug.png', x = 0, y = 0, speed = 1 } = {}) {
 		this.sprite = sprite;
 		this.x = x;
-		this.y = y;
+        this.y = y;
+        this.speed = speed;
 	}
 
 	// Atualize a posição do inimigo, método exigido pelo jogo
 	// Parâmetro: dt, um delta de tempo entre ticks
 	update(dt) {
-        let speed = 1;
-        this.x += 101 * speed * dt;
+        
         
 		// Você deve multiplicar qualquer movimento pelo parâmetro
 		// dt, o que garantirá que o jogo rode na mesma velocidade
-		// em qualquer computador.
+        // em qualquer computador.
+        this.x += 101 * this.speed * dt;
+        
+        if (this.x > ctx.canvas.width) {
+            this.x -= ctx.canvas.width;
+        }
 	}
 
 	// Desenhe o inimigo na tela, método exigido pelo jogo
@@ -39,7 +44,7 @@ class Player {
 
 	update() {
 		if (this.y < 0) {
-			console.log(`success!`);
+            this.positionInitial();
 		}
 	}
 
@@ -84,12 +89,12 @@ class Player {
 
 // Represente seus objetos como instâncias.
 const player = new Player();
-const enemy1 = new Enemy({ y: 60, x: -101 });
-const enemy2 = new Enemy({ y: 140, x: -606 });
-const enemy3 = new Enemy({ y: 220, x: -303 });
-const enemy4 = new Enemy({ y: 60, x: -800 });
-const enemy5 = new Enemy({ y: 140, x: -440 });
-const enemy6 = new Enemy({ y: 220, x: -202 });
+const enemy1 = new Enemy({ y: 60, x: -202, speed: 1.2 });
+const enemy2 = new Enemy({ y: 140, x: -808 });
+const enemy3 = new Enemy({ y: 220, x: -404 });
+const enemy4 = new Enemy({ y: 60, x: -1600, speed: 1.4});
+const enemy5 = new Enemy({ y: 140, x: -101 });
+const enemy6 = new Enemy({ y: 220, x: -606, speed: 1.1});
 
 const allEnemies = [ enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 ];
 // Coloque todos os objetos inimgos numa array allEnemies
